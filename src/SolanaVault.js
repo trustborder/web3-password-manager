@@ -11,7 +11,8 @@ export function SolanaVault(props) {
 
     let account = connect();
     account.catch(err => {
-      console.log("Failed to connect to solana:", err);
+      console.log(err);
+      props.notify("error", "Failed to connect to solana: " + err.message);
       setDisableButton(false);
     });
 
@@ -21,7 +22,8 @@ export function SolanaVault(props) {
         props.successCallback(signature.signature);
         setDisableButton(false);
       }).catch(err => {
-        console.log("Failed to sign message:", err);
+        console.log(err);
+        props.notify("error", "Failed to sign message: " + err.message);
         setDisableButton(false);
       });
     });

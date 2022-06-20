@@ -31,7 +31,10 @@ export function BulkGenerator(props) {
       passwords.push(password);
     }
 
-    window.navigator.clipboard.writeText(passwords.join("\n")).catch(err => console.log(err));
+    window.navigator.clipboard.writeText(passwords.join("\n")).catch(err => {
+      console.log(err)
+      props.notify("error",  "Failed to copy password: " + err.message);
+    });
   }
 
   const handleNumOnChange = (event) => {

@@ -16,12 +16,12 @@ export function UnlockVault(props) {
     <Grid container rowSpacing={2} sx={{mt: 1}} align="center">
       {eth &&
         <Grid item xs={12}>
-          <EthereumVault successCallback={props.successCallback} />
+          <EthereumVault notify={props.notify} successCallback={props.successCallback} />
         </Grid>
       }
       {sol &&
         <Grid item xs={12}>
-          <SolanaVault successCallback={props.successCallback} />
+          <SolanaVault notify={props.notify} successCallback={props.successCallback} />
         </Grid>
       }
       {!anyProviderAvailable &&
