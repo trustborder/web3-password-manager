@@ -13,7 +13,7 @@ import {HowToUse} from './HowToUse';
 export function PasswordManager(props) {
   const [domain, setDomain] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordInputType, setPasswordInputType] = useState("password");
+  const [passwordInputType, setPasswordInputType] = useState("text");
   const [displayCopyButton, setDisplayCopyButton] = useState(false);
 
   useEffect(() => {
@@ -23,13 +23,21 @@ export function PasswordManager(props) {
 
       setPassword(projectOntoCharacterSet(byteData, [], 40));
     } catch (err) {}
-  }, [domain]);
+  }, [domain, props.passwordSignature]);
 
+  let notify = props.notify
   useEffect(() => {
-    navigator.permissions.query({name: "clipboard-write"}).then(result => {
-      setDisplayCopyButton(result.state === "granted");
-    });
-  }, []);
+    try {
+      window.navigator.permissions.query({name: "clipboard-write"}).then(result => {
+        setDisplayCopyButton(result.state === "granted");
+      }).catch(err => {
+        notify("error", "Can't query permissions: " + err.message);
+      });
+    } catch (err) {
+      // Mobile wallets don't have a permissions object under navigator
+      console.log(err);
+    }
+  }, [notify]);
 
   const handleDomainChange = (event) => {
     setDomain(event.target.value);
@@ -54,7 +62,7 @@ export function PasswordManager(props) {
         <Grid item xs={12}>
           <TextField fullWidth size="small" label="URL or domain" variant="outlined" value={domain} onChange={handleDomainChange} />
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs>
           <TextField fullWidth readOnly size="small" type={passwordInputType} onMouseOut={handlePasswordHover} onMouseOver={handlePasswordHover} value={password} />
         </Grid>
         {displayCopyButton && <Grid item alignItems="stretch" style={{display: "flex"}} xs={3}>

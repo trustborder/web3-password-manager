@@ -11,6 +11,7 @@ import './App.css';
 import {PasswordManager} from './PasswordManager';
 import {BulkGenerator} from './BulkGenerator';
 import {UnlockVault} from './UnlockVault';
+import {ErrorBoundary} from './ErrorBoundary';
 
 export default function App() {
   const [passwordSignature, setPasswordSignature] = useState("");
@@ -42,13 +43,15 @@ export default function App() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Container>
-        <Routes>
-          {passwordSignature === "" && <Route path="*" element={<UnlockVault notify={notify} successCallback={handleUnlockVault} />} />}
-          {passwordSignature !== "" && <Route path={process.env.REACT_APP_URL_BASE + "/"} element={<PasswordManager notify={notify} passwordSignature={passwordSignature} />} />}
-          {passwordSignature !== "" && <Route path={process.env.REACT_APP_URL_BASE + "/bulk"} element={<BulkGenerator notify={notify} passwordSignature={passwordSignature} />} />}
-        </Routes>
-      </Container>
+      <ErrorBoundary notify={notify}>
+        <Container>
+          <Routes>
+            {passwordSignature === "" && <Route path="*" element={<UnlockVault notify={notify} successCallback={handleUnlockVault} />} />}
+            {passwordSignature !== "" && <Route path={process.env.REACT_APP_URL_BASE + "/"} element={<PasswordManager notify={notify} passwordSignature={passwordSignature} />} />}
+            {passwordSignature !== "" && <Route path={process.env.REACT_APP_URL_BASE + "/bulk"} element={<BulkGenerator notify={notify} passwordSignature={passwordSignature} />} />}
+          </Routes>
+        </Container>
+      </ErrorBoundary>
       <Snackbar open={snackbar.open} autoHideDuration={2000} onClose={handleSnackbarClose}>
         <Alert severity={snackbar.severity} onClose={handleSnackbarClose} sx={{ width: '100%' }}>
           {snackbar.message}
