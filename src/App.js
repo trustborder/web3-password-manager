@@ -11,7 +11,7 @@ import {
 import './App.css';
 import {PasswordManager} from './PasswordManager';
 import {BulkGenerator} from './BulkGenerator';
-import {EthVault} from './EthVault';
+import {UnlockVault} from './UnlockVault';
 
 export default function App() {
   const [passwordSignature, setPasswordSignature] = useState("");
@@ -31,7 +31,7 @@ export default function App() {
       </AppBar>
       <Container>
         <Routes>
-          {passwordSignature === "" && <Route path="*" element={<EthVault successCallback={handleUnlockVault} />} />}
+          {passwordSignature === "" && <Route path="*" element={<UnlockVault successCallback={handleUnlockVault} />} />}
           {passwordSignature !== "" && <Route path={process.env.REACT_APP_URL_BASE + "/"} element={<PasswordManager passwordSignature={passwordSignature} />} />}
           {passwordSignature !== "" && <Route path={process.env.REACT_APP_URL_BASE + "/bulk"} element={<BulkGenerator passwordSignature={passwordSignature} />} />}
         </Routes>

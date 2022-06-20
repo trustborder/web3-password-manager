@@ -1,3 +1,6 @@
+export function ethereumAvailable() {
+  return typeof(window.ethereum) === 'object';
+}
 
 // Request the accounts from the available wallet. This will initiate a prompt if the site isn't connected.
 // Errors if no account is available.

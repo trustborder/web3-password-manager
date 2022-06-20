@@ -1,21 +1,20 @@
 import {React, useState} from 'react';
-
-import {signTypedMessage} from './EthereumUtils';
-import {getAccount} from './EthereumUtils';
-
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 
-export function EthVault(props) {
+import {getAccount, signTypedMessage} from './EthereumUtils';
+
+export function EthereumVault(props) {
   const [disableButton, setDisableButton] = useState(false);
 
   const handleUnlockVault = (event) => {
     setDisableButton(true);
+
     let account = getAccount();
     let signingMessage = getSigningMessage("Dummy Message");
     account.then(account => {
       signTypedMessage([account, JSON.stringify(signingMessage)]).then(signature => {
         props.successCallback(signature);
+        setDisableButton(false);
       }).catch(err => {
         console.log("Failed to sign message:", err);
         setDisableButton(false);
@@ -24,11 +23,9 @@ export function EthVault(props) {
   };
 
   return (
-    <Box sx={{ mt: 2 }}>
-      <Button fullWidth disabled={disableButton} variant="contained" sx={{ mt: 3, mb: 2 }} onClick={handleUnlockVault}>
-        Unlock Ethereum Vault
-      </Button>
-    </Box>
+    <Button fullWidth disabled={disableButton} variant="contained" onClick={handleUnlockVault}>
+      Unlock Ethereum Vault
+    </Button>
   )
 }
 
