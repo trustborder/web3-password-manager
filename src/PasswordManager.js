@@ -34,10 +34,13 @@ export function PasswordManager(props) {
     let byteData = generateByteData(props.passwordSignature, salt, 40);
     let password = projectOntoCharacterSet(byteData, [], 40);
 
-    window.navigator.clipboard.writeText(password).catch(err => console.log(err));
-
-    setSnackbar({...snackbar, ...updatedSnackbar});
-    setDomain("");
+    window.navigator.clipboard.writeText(password).then(() => {
+      setSnackbar({...snackbar, ...updatedSnackbar});
+      setDomain("");
+    }).catch(err => {
+      console.log(err);
+      setSnackbar({...snackbar, ...{open: true, severity: "error", message: "Failed to copy password"}});
+    });
   }
 
   const handleSnackbarClose = (event) => setSnackbar({...snackbar, open: false});
