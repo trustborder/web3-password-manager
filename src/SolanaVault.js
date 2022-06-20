@@ -9,15 +9,8 @@ export function SolanaVault(props) {
   const handleUnlockVault = (event) => {
     setDisableButton(true);
 
-    let account = connect();
-    account.catch(err => {
-      console.log(err);
-      props.notify("error", "Failed to connect to solana: " + err.message);
-      setDisableButton(false);
-    });
-
     let signingMessage = getSigningMessage("Dummy Message");
-    account.then(() => {
+    connect().then((account) => {
       signMessage(signingMessage).then(signature => {
         props.successCallback(signature.signature);
         setDisableButton(false);
@@ -26,6 +19,10 @@ export function SolanaVault(props) {
         props.notify("error", "Failed to sign message: " + err.message);
         setDisableButton(false);
       });
+    }).catch(err => {
+      console.log(err);
+      props.notify("error", "Failed to connect to solana: " + err.message);
+      setDisableButton(false);
     });
   };
 

@@ -8,11 +8,5 @@ export function connect() {
 
 export function signMessage(message) {
   let encodedMessage = new TextEncoder().encode(message);
-  return window.solana.request({
-    method: "signMessage",
-    params: {
-      message: encodedMessage,
-      display: "utf8",
-    }
-  })
+  return window.solana.signMessage(encodedMessage, "utf8");
 }
