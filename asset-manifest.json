@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/web3-password-manager/static/css/main.25ea4206.css",
-    "main.js": "/web3-password-manager/static/js/main.5474b38b.js",
+    "main.js": "/web3-password-manager/static/js/main.4b5580ea.js",
     "static/js/787.e074fb59.chunk.js": "/web3-password-manager/static/js/787.e074fb59.chunk.js",
     "index.html": "/web3-password-manager/index.html",
     "main.25ea4206.css.map": "/web3-password-manager/static/css/main.25ea4206.css.map",
-    "main.5474b38b.js.map": "/web3-password-manager/static/js/main.5474b38b.js.map",
+    "main.4b5580ea.js.map": "/web3-password-manager/static/js/main.4b5580ea.js.map",
     "787.e074fb59.chunk.js.map": "/web3-password-manager/static/js/787.e074fb59.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.25ea4206.css",
-    "static/js/main.5474b38b.js"
+    "static/js/main.4b5580ea.js"
   ]
 }
