@@ -11,10 +11,10 @@ export function EthVault(props) {
 
   const handleUnlockVault = (event) => {
     setDisableButton(true);
-    let account = getAccount(props.web3);
+    let account = getAccount();
     let signingMessage = getSigningMessage("Dummy Message");
     account.then(account => {
-      signTypedMessage([props.web3, account, JSON.stringify(signingMessage)]).then(signature => {
+      signTypedMessage([account, JSON.stringify(signingMessage)]).then(signature => {
         props.successCallback(signature);
       }).catch(err => {
         console.log("Failed to sign message:", err);

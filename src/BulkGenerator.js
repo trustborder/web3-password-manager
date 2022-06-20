@@ -4,10 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
 import Grid from '@mui/material/Grid';
-import Input from '@mui/material/Input';
-import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
 
 import {generateByteData, projectOntoCharacterSet, characterSetOptions} from './PasswordUtils';
