@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 
 import {extractDomain, generateByteData, projectOntoCharacterSet} from './PasswordUtils';
 import {Disclaimer} from './Disclaimer';
@@ -10,38 +12,57 @@ import {HowToUse} from './HowToUse';
 
 export function PasswordManager(props) {
   const [domain, setDomain] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordInputType, setPasswordInputType] = useState("password");
+  const [displayCopyButton, setDisplayCopyButton] = useState(false);
 
-  const handleChange = (event) => {
-    setDomain(event.target.value);
-  }
-
-  const handleGeneratePassword = (event) => {
-    let salt = domain;
-    let updatedSnackbar = {severity: "success", message: "Password copied"}
+  useEffect(() => {
     try {
-      salt = extractDomain(domain);
-    } catch(err) {
-      updatedSnackbar = {severity: "warning", message: "Password copied for invalid domain"};
-    }
+      let salt = extractDomain(domain);
+      let byteData = generateByteData(props.passwordSignature, salt, 40);
 
-    let byteData = generateByteData(props.passwordSignature, salt, 40);
-    let password = projectOntoCharacterSet(byteData, [], 40);
+      setPassword(projectOntoCharacterSet(byteData, [], 40));
+    } catch (err) {}
+  }, [domain]);
 
+  useEffect(() => {
+    navigator.permissions.query({name: "clipboard-write"}).then(result => {
+      setDisplayCopyButton(result.state === "granted");
+    });
+  }, []);
+
+  const handleDomainChange = (event) => {
+    setDomain(event.target.value);
+  };
+
+  const handleCopyPassword = (event) => {
     window.navigator.clipboard.writeText(password).then(() => {
-      props.notify(updatedSnackbar.severity, updatedSnackbar.message);
-      setDomain("");
+      props.notify("success", "Password copied");
     }).catch(err => {
       console.log(err);
       props.notify("error",  "Failed to copy password: " + err.message);
     });
   }
 
+  const handlePasswordHover = (event) => {
+    setPasswordInputType((!displayCopyButton || event.type === "mouseover") ? "text" : "password"); 
+  };
+
   return (
     <Box>
-      <TextField fullWidth label="URL or domain" variant="outlined" sx={{ mt: 2 }} value={domain} onChange={handleChange} />
-      <Button fullWidth variant="contained" sx={{ mt: 2 }} onClick={handleGeneratePassword}>
-        Copy Password 
-      </Button>
+      <Grid container spacing={2} sx={{mt: 1}}>
+        <Grid item xs={12}>
+          <TextField fullWidth size="small" label="URL or domain" variant="outlined" value={domain} onChange={handleDomainChange} />
+        </Grid>
+        <Grid item xs={9}>
+          <TextField fullWidth readOnly size="small" type={passwordInputType} onMouseOut={handlePasswordHover} onMouseOver={handlePasswordHover} value={password} />
+        </Grid>
+        {displayCopyButton && <Grid item alignItems="stretch" style={{display: "flex"}} xs={3}>
+          <Button fullWidth variant="contained" onClick={handleCopyPassword} endIcon={<ContentCopyIcon />}>
+            Copy Password
+          </Button>
+        </Grid>}
+      </Grid>
       <Disclaimer />
       <HowToUse />
     </Box>
