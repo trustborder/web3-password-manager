@@ -28,9 +28,14 @@ export function UnlockVault(props) {
         <Grid item xs={12} justifyContent="center">
           <Typography variant="p" color="inherit" className="wrap-text">
             Please visit this site with a browser that has an ethereum or solana wallet available.
+            Alternatively, if you have phantom installed on your mobile device, click <a href={phantomURL()}>here</a>.
           </Typography>
         </Grid>
       }
     </Grid>
   )
+}
+
+function phantomURL() {
+  return "https://phantom.app/ul/browse/https%3A%2F%2Ftrustborder.github.io%2Fweb3-password-manager?ref=https%3A%2F%2Ftrustborder.github.io"
 }

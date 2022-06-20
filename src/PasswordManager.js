@@ -39,7 +39,7 @@ export function PasswordManager(props) {
       setDomain("");
     }).catch(err => {
       console.log(err);
-      setSnackbar({...snackbar, ...{open: true, severity: "error", message: "Failed to copy password"}});
+      setSnackbar({...snackbar, ...{open: true, severity: "error", message: "Failed to copy password: " + err.message}});
     });
   }
 
