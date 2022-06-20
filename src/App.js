@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
@@ -23,7 +22,6 @@ export default function App() {
 
   return (
     <div>
-      <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
