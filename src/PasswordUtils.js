@@ -33,7 +33,8 @@ export function generateByteData(web3, signature, domain) {
   return bytes;
 }
 
-export function projectOntoCharacterSet(bytes, selectedCharacterSets) {
+// Any change to this function will invalidate all old passwords.
+export function projectOntoCharacterSet(bytes, selectedCharacterSets, passwordLength) {
   let finalCharacterSet = "";
   for (const s of selectedCharacterSets) {
     finalCharacterSet += characterSets[s];

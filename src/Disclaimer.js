@@ -19,6 +19,7 @@ export function Disclaimer() {
         This would result in all of your other passwords being leaked as well.
         Use at your own risk!
         The code for this project is available at <a href="https://github.com/trustborder/web3-password-manager">https://github.com/trustborder/web3-password-manager</a>.
+        The algorithm used to generate passwords is subject to change without warning.
       </Typography>
     </Box>
   );

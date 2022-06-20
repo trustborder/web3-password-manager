@@ -36,8 +36,8 @@ export default function App() {
       <Container>
         <Routes>
           {passwordSignature === "" && <Route path="*" element={<EthVault web3={web3} successCallback={handleUnlockVault} />} />}
-          {passwordSignature !== "" && <Route path="/" element={<PasswordManager web3={web3} passwordSignature={passwordSignature} />} />}
-          {passwordSignature !== "" && <Route path="/bulk" element={<BulkGenerator web3={web3} passwordSignature={passwordSignature} />} />}
+          {passwordSignature !== "" && <Route path={process.env.REACT_APP_URL_BASE + "/"} element={<PasswordManager web3={web3} passwordSignature={passwordSignature} />} />}
+          {passwordSignature !== "" && <Route path={process.env.REACT_APP_URL_BASE + "/bulk"} element={<BulkGenerator web3={web3} passwordSignature={passwordSignature} />} />}
         </Routes>
       </Container>
     </div>
