@@ -1,3 +1,5 @@
+import { SHAKE } from 'sha3';
+
 export const characterSetOptions = ["Uppercase", "Lowercase", "Numbers", "Symbols"];
 
 // This character set has 64 characters in it.
@@ -23,13 +25,18 @@ export function extractDomain(url) {
   return hostname;
 }
 
-export function generateByteData(web3, signature, domain) {
-  let hash = web3.utils.sha3Raw(signature + domain);
+// Any change to this function will invalidate all old passwords.
+export function generateByteData(baseSignature, domain, passwordLength) {
+  const hash = new SHAKE(256);
+  
+  hash.update(baseSignature);
+  hash.update(domain);
+
+  let result = hash.digest({buffer: Buffer.alloc(passwordLength), format: 'hex'});
 
   // Adapted from https://stackoverflow.com/questions/14603205/how-to-convert-hex-string-into-a-bytes-array-and-a-bytes-array-in-the-hex-strin
-  // Requires the string starts with 0x
-  for (var bytes = [], c = 2; c < hash.length; c += 2)
-    bytes.push(parseInt(hash.substr(c, 2), 16));
+  for (var bytes = [], c = 0; c < result.length; c += 2)
+    bytes.push(parseInt(result.substr(c, 2), 16));
   return bytes;
 }
 

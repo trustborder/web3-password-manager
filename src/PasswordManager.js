@@ -31,8 +31,8 @@ export function PasswordManager(props) {
       updatedSnackbar = {open: true, severity: "warning", message: "Password copied for invalid domain"};
     }
 
-    let byteData = generateByteData(props.web3, props.passwordSignature, salt);
-    let password = projectOntoCharacterSet(byteData, []);
+    let byteData = generateByteData(props.passwordSignature, salt, 40);
+    let password = projectOntoCharacterSet(byteData, [], 40);
 
     window.navigator.clipboard.writeText(password).catch(err => console.log(err));
 
