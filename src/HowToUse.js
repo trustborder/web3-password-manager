@@ -10,6 +10,7 @@ export function HowToUse() {
       <Typography variant="p" color="inherit" className="wrap-text">
         Simply copy the url for a website you want a password for and click the copy button.
         Note that subdomains matter, this will give you different passwords for www.mysite.com and mysite.com.
+        Changing any of the settings will generate entirely new passwords, so the default settings will provide the best experience.
       </Typography>
     </Box>
   );

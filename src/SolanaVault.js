@@ -9,7 +9,7 @@ export function SolanaVault(props) {
   const handleUnlockVault = (event) => {
     setDisableButton(true);
 
-    let signingMessage = getSigningMessage("Dummy Message");
+    let signingMessage = getSigningMessage("Placeholder password");
     connect().then((account) => {
       signMessage(signingMessage).then(signature => {
         props.successCallback(signature.signature);

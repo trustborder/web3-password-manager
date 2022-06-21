@@ -27,7 +27,7 @@ export function BulkGenerator(props) {
     let totalPasswords = Math.max(1, numPasswords || 0);
     for (let i = 0; i < totalPasswords; i++) {
       let byteData = generateByteData(props.passwordSignature, Math.random(), passwordLength);
-      let password = projectOntoCharacterSet(byteData, projectedCharacterSet, passwordLength);
+      let password = projectOntoCharacterSet(byteData, projectedCharacterSet);
       passwords.push(password);
     }
 

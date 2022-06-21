@@ -41,7 +41,7 @@ export function generateByteData(baseSignature, domain, passwordLength) {
 }
 
 // Any change to this function will invalidate all old passwords.
-export function projectOntoCharacterSet(bytes, selectedCharacterSets, passwordLength) {
+export function projectOntoCharacterSet(bytes, selectedCharacterSets) {
   let finalCharacterSet = "";
   for (const s of selectedCharacterSets) {
     finalCharacterSet += characterSets[s];

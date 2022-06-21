@@ -10,7 +10,7 @@ export function EthereumVault(props) {
     setDisableButton(true);
 
     let account = getAccount();
-    let signingMessage = getSigningMessage("Dummy Message");
+    let signingMessage = getSigningMessage("Placeholder password");
     account.then(account => {
       signTypedMessage([account, JSON.stringify(signingMessage)]).then(signature => {
         props.successCallback(signature);
