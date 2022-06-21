@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Routes, Route} from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import AppBar from '@mui/material/AppBar';
@@ -6,12 +6,18 @@ import Container from '@mui/material/Container';
 import Snackbar from '@mui/material/Snackbar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import CssBaseline from '@mui/material/CssBaseline';
+import ReactGA from 'react-ga';
 
 import './App.css';
 import {PasswordManager} from './PasswordManager';
 import {BulkGenerator} from './BulkGenerator';
 import {UnlockVault} from './UnlockVault';
 import {ErrorBoundary} from './ErrorBoundary';
+
+if (googleAnalyticsAvailable()) {
+  ReactGA.initialize(process.env.REACT_APP_GA_TRACKER);
+}
 
 export default function App() {
   const [passwordSignature, setPasswordSignature] = useState("");
@@ -34,8 +40,15 @@ export default function App() {
     setPasswordSignature(signature);
   };
 
+  useEffect(() => {
+    if (googleAnalyticsAvailable()) {
+      ReactGA.pageview(window.location.pathname);
+    }
+  }, []);
+
   return (
-    <div>
+    <React.Fragment>
+      <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
@@ -57,6 +70,10 @@ export default function App() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-    </div>
+    </React.Fragment>
   );
+}
+
+function googleAnalyticsAvailable() {
+  return process.env.REACT_APP_GA_TRACKER !== ""
 }
