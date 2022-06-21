@@ -85,7 +85,7 @@ export function PasswordManager(props) {
         <Grid item xs={12} sm={12}>
           <TextField fullWidth size="small" label="URL or domain" variant="outlined" value={domain} onChange={handleDomainChange} />
         </Grid>
-        <Grid item xs={4} sm={2}>
+        <Grid item xs={8} sm={2}>
           <TextField label="Password length" type="number" size="small" value={passwordLength} onChange={handlePasswordLengthInput} />
         </Grid>
           { 
@@ -97,7 +97,7 @@ export function PasswordManager(props) {
         </Grid>;
             })
           }
-        <Grid item xs={4} sm={2} />
+        <Grid item xs={0} sm={2} />
         <Grid item sm>
           <TextField
           fullWidth
