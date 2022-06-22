@@ -12,7 +12,7 @@ export function NoWalletAvailable() {
         No wallet found
       </Typography>
       <Typography variant="p" color="inherit" className="wrap-text">
-        Please visit this site with a browser that has an ethereum or solana wallet available.
+        Please visit this site with a browser that has an ethereum or solana wallet available, or click a.
         Alternatively, select your installed mobile wallet below.
       </Typography>
       <Stack spacing={2}>

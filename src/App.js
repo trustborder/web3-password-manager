@@ -10,6 +10,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import ReactGA from 'react-ga';
 
 import './App.css';
+import {Disclaimer} from './Disclaimer';
 import {PasswordManager} from './PasswordManager';
 import {BulkGenerator} from './BulkGenerator';
 import {UnlockVault} from './UnlockVault';
@@ -63,6 +64,7 @@ export default function App() {
             {passwordSignature !== "" && <Route path={process.env.REACT_APP_URL_BASE + "/"} element={<PasswordManager notify={notify} passwordSignature={passwordSignature} />} />}
             {passwordSignature !== "" && <Route path={process.env.REACT_APP_URL_BASE + "/bulk"} element={<BulkGenerator notify={notify} passwordSignature={passwordSignature} />} />}
           </Routes>
+          <Disclaimer />
         </Container>
       </ErrorBoundary>
       <Snackbar open={snackbar.open} autoHideDuration={2000} onClose={handleSnackbarClose}>

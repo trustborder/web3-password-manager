@@ -1,10 +1,12 @@
+import React from 'react';
 import Grid from '@mui/material/Grid';
 
 import {EthereumVault} from './EthereumVault';
 import {ethereumAvailable} from './EthereumUtils';
+import {HowSignatureWorks} from './HowSignatureWorks';
+import {NoWalletAvailable} from './NoWalletAvailable';
 import {SolanaVault} from './SolanaVault';
 import {solanaAvailable} from './SolanaUtils';
-import {NoWalletAvailable} from './NoWalletAvailable';
 
 export function UnlockVault(props) {
   const eth = ethereumAvailable();
@@ -13,6 +15,7 @@ export function UnlockVault(props) {
   const anyProviderAvailable = eth || sol;
 
   return (
+    <React.Fragment>
     <Grid container rowSpacing={2} sx={{mt: 1}} align="center">
       {eth &&
         <Grid item xs={12}>
@@ -29,6 +32,8 @@ export function UnlockVault(props) {
           <NoWalletAvailable />
         </Grid>
       }
-    </Grid>
+      </Grid>
+    {anyProviderAvailable && <HowSignatureWorks />}
+    </React.Fragment>
   )
 }

@@ -9,7 +9,6 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
 import {characterSetOptions, extractDomain, generateByteData, projectOntoCharacterSet} from './PasswordUtils';
-import {Disclaimer} from './Disclaimer';
 import {HowToUse} from './HowToUse';
 
 export function PasswordManager(props) {
@@ -21,7 +20,7 @@ export function PasswordManager(props) {
   const [displayCopyButton, setDisplayCopyButton] = useState(false);
 
   useEffect(() => {
-    let projectedCharacterSet = [] 
+    let projectedCharacterSet = []
     for (let idx in characterSetOptions) {
       let option = characterSetOptions[idx]
       if (characterSetSelector[option]) {
@@ -65,9 +64,9 @@ export function PasswordManager(props) {
   }
 
   const handlePasswordHover = (event) => {
-    setPasswordInputType((!displayCopyButton || event.type === "mouseover") ? "text" : "password"); 
+    setPasswordInputType((!displayCopyButton || event.type === "mouseover") ? "text" : "password");
   };
-  
+
   const handlePasswordLengthInput = (event) => {
     setPasswordLength(Math.min(64, Math.max(1, event.target.value || 1)));
   };
@@ -88,7 +87,7 @@ export function PasswordManager(props) {
         <Grid item xs={8} sm={2}>
           <TextField label="Password length" type="number" size="small" value={passwordLength} onChange={handlePasswordLengthInput} />
         </Grid>
-          { 
+          {
             characterSetOptions.map(function(set, i) {
               return <Grid item key={set} xs={4} sm={2}>
               <FormControlLabel label={set} control={
@@ -116,7 +115,6 @@ export function PasswordManager(props) {
           </Button>
         </Grid>}
       </Grid>
-      <Disclaimer />
       <HowToUse />
     </Box>
   )
